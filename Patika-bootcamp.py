@@ -88,6 +88,7 @@ print(type(tupleSame))
 # integer => tamamlama yuzdelik orani
 
 # Sart blogu => giris yap bolumu ve programa dahil ol bolumunde kullanildigini dusunuyorum
+# Kullanici Girisi: 
 dataBaseUserName = "userName"
 dataBasePassword = "password"
 
@@ -99,7 +100,8 @@ if (userName == dataBaseUserName and password == dataBasePassword):
   print("Welcome your in!")
 else:
   print("Your informations not correct please try again!")
-  
+
+# Programa Dahil Ol:
 dataBaseRegisteredUser = True
 if(dataBaseRegisteredUser == True):
   print("Congrats you can watch this program")
