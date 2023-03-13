@@ -3,7 +3,7 @@ print("*-*  'Welcome To My Student Lists'  *-*")
 listStudents = ["Ahmet Korkut", "Mehmet Galip", "Tekin Korkmaz", "Talha Koc", "Mert Gunok"]
 print(listStudents)
 
-print("Please enter name and surname for add to the list")
+
 def addStudent():
     print("\n***  'Add More Student Single Time' ***\n")
     addStudentName = input("Please enter name and surname for add in the list : ")
@@ -26,8 +26,8 @@ print(listStudents)
 
 def deletedStudent():
       print("\n***  'Delete Students You Want To ' ***\n")
-    deletedStudent = input("Please enter the full name of the student you want deleted! :  ")
-    listStudents.remove(deletedStudent)
+      deletedStudents = input("Please enter the full name of the student you want deleted! :  ")
+      listStudents.remove(deletedStudents)
     
 
 deletedStudent()
