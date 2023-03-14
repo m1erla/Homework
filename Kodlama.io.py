@@ -69,11 +69,11 @@ for i in range(len(listStudents)):
 print("\n***  'Student Number Finder ' ***\n")
 findStudentNumber = input("If you want to learn student number then please enter student's full name : ")
 for i in range(len(listStudents)):
-    if listStudents[i] == findStudentNumber:
+     if listStudents[i] == findStudentNumber:
         print(f"Student number is {i}") 
-        else:
+    else:
             print("Student not found")
-          break
+            break
         
 print("\n***   'Latest Status of The List'   ***\n")
 print(listStudents)
