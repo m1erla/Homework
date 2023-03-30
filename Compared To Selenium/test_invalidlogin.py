@@ -32,7 +32,7 @@ class TestInvalidlogin():
     self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"password\"]").click()
     assert self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"error\"]").text == "Epic sadface: Username and password do not match any user in this service"
   
-   # PYTEST
+   # PYTEST FROM PYTHON
    def getData():
         excelFile = openpyxl.load_workbook("data/invalid_login.xlsx")
         selectedSheet= excelFile["Sheet1"]
