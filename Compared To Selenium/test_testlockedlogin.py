@@ -33,7 +33,7 @@ class TestTestlockedlogin():
   # PYTEST FROM PYTHON
   
     @pytest.mark.parametrize("username, password",[("locked_out_user","secret_sauce")])
-    def test_locked_login(self,username,password):   
+     def test_locked_login(self,username,password):   
         self.waitForElementVisible((By.ID, 'user-name'))
         userInput = self.driver.find_element(By.ID, 'user-name')
         self.waitForElementVisible((By.ID, 'password'),2)
