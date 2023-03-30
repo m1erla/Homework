@@ -30,7 +30,7 @@ class TestTesterroricon():
  
 
    # PYTEST FROM PYTHON
-   def test_error_icon(self):       
+      def test_error_icon(self):       
         loginBtn = self.driver.find_element(By.ID, "login-button")     
         loginBtn.click()      
         errorCloseIcon = self.driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div[1]/div/div/form/div[3]/h3/button")   
