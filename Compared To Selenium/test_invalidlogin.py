@@ -21,7 +21,7 @@ class TestInvalidlogin():
   
   def test_invalidlogin(self):
     self.driver.get("https://www.saucedemo.com/")
-    self.driver.set_window_size(1423, 1372)
+    self.driver.maximize_window()
     self.driver.find_element(By.ID, "user-name").click()
     self.driver.find_element(By.ID, "user-name").send_keys("1")
     self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"password\"]").click()
