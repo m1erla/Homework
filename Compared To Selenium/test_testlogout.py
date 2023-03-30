@@ -17,7 +17,7 @@ class TestTestlogout():
   
   def teardown_method(self, method):
     self.driver.quit()
-  
+  # SELENIUM TEST
   def test_testlogout(self):
     self.driver.get("https://www.saucedemo.com/")
     self.driver.maximize_window()
@@ -31,4 +31,24 @@ class TestTestlogout():
     self.driver.find_element(By.ID, "react-burger-menu-btn").click()
     WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located((By.ID, "logout_sidebar_link")))
     self.driver.find_element(By.ID, "logout_sidebar_link").click()
+    
+    
+    # PYTEST FROM PYTHON
+    @pytest.mark.parametrize("username,password",[("standard_user","secret_sauce")])
+    def test_logout(self,username,password):
+        self.waitForElementVisible((By.ID, 'user-name'))
+        userInput = self.driver.find_element(By.ID, 'user-name')
+        self.waitForElementVisible((By.ID, 'password'),2)
+        passwordInput = self.driver.find_element(By.ID, 'password')
+        userInput.send_keys(username)
+        passwordInput.send_keys(password)
+        loginBtn = self.driver.find_element(By.ID, "login-button")  
+        loginBtn.click()
+        settingBtn = self.driver.find_element(By.ID, "react-burger-menu-btn")
+        settingBtn.click()
+        self.waitForElementVisible((By.ID, 'logout_sidebar_link'))
+        logoutBtn= self.driver.find_element(By.ID, 'logout_sidebar_link')
+        self.driver.find_elements(By.CLASS_NAME,"bm-item menu-item")
+        logoutBtn.click()
+        self.driver.save_screenshot(f"{self.folderPath}/test_logout.png")
   
