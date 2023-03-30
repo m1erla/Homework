@@ -17,7 +17,7 @@ class TestTesterroricon():
   
   def teardown_method(self, method):
     self.driver.quit()
-  
+  # SELENIUM TEST
   def test_testerroricon(self):
     self.driver.get("https://www.saucedemo.com/")
     self.driver.maximize_window()
@@ -27,4 +27,12 @@ class TestTesterroricon():
     self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"login-button\"]").click()
     WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".fa-times > path")))
     self.driver.find_element(By.CSS_SELECTOR, ".fa-times").click()
-  
+ 
+
+   # PYTEST FROM PYTHON
+   def test_error_icon(self):       
+        loginBtn = self.driver.find_element(By.ID, "login-button")     
+        loginBtn.click()      
+        errorCloseIcon = self.driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div[1]/div/div/form/div[3]/h3/button")   
+        self.driver.save_screenshot(f"{self.folderPath}/test-error-icon.png") 
+        errorCloseIcon.click()
