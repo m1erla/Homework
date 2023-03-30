@@ -18,7 +18,7 @@ class TestInvalidlogin():
   
   def teardown_method(self, method):
     self.driver.quit()
-  
+  # SELENIUM TEST
   def test_invalidlogin(self):
     self.driver.get("https://www.saucedemo.com/")
     self.driver.maximize_window()
@@ -31,4 +31,36 @@ class TestInvalidlogin():
     self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"username\"]").send_keys("test")
     self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"password\"]").click()
     assert self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"error\"]").text == "Epic sadface: Username and password do not match any user in this service"
+  
+   # PYTEST
+   def getData():
+        excelFile = openpyxl.load_workbook("data/invalid_login.xlsx")
+        selectedSheet= excelFile["Sheet1"]
+        totalRows = selectedSheet.max_row
+        data =[]
+        for i in range(2,totalRows+1):
+            username = selectedSheet.cell(i,1).value
+            password = selectedSheet.cell(i,2).value
+            tupleData = (username,password)
+            data.append(tupleData)
+        return data
+    
+    @pytest.mark.parametrize("username,password",getData())
+    def test_invalid_login(self,username,password):
+         self.waitForElementVisible((By.ID, "user-name"))
+         usernameInput = self.driver.find_element(By.ID, "user-name")
+         self.waitForElementVisible((By.ID, "password"),10)
+         passwordInput = self.driver.find_element(By.ID, "password") 
+        
+         usernameInput.send_keys(username)
+         passwordInput.send_keys(password)
+         loginBtn = self.driver.find_element(By.ID, "login-button")
+         loginBtn.click()
+         self.waitForElementVisible(
+            (By.XPATH, '//*[@id="login_button_container"]/div/form/div[3]/h3'))
+        
+         errorMessage = self.driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div[1]/div/div/form/div[3]/h3")
+         self.driver.save_screenshot(f"{self.folderPath}/test-invalid-login-{username}-{password}.png")
+         assert errorMessage.text == "Epic sadface: Username and password do not match any user in this service"
+    
   
