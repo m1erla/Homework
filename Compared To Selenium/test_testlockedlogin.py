@@ -17,7 +17,7 @@ class TestTestlockedlogin():
   
   def teardown_method(self, method):
     self.driver.quit()
-  
+  # SELENIUM TEST
   def test_testlockedlogin(self):
     self.driver.get("https://www.saucedemo.com/")
     self.driver.maximize_window()
@@ -29,4 +29,20 @@ class TestTestlockedlogin():
     self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"login-button\"]").click()
     WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "*[data-test=\"error\"]")))
     assert self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"error\"]").text == "Epic sadface: Sorry, this user has been locked out."
+   
+  # PYTEST FROM PYTHON
+  
+    @pytest.mark.parametrize("username, password",[("locked_out_user","secret_sauce")])
+    def test_locked_login(self,username,password):   
+        self.waitForElementVisible((By.ID, 'user-name'))
+        userInput = self.driver.find_element(By.ID, 'user-name')
+        self.waitForElementVisible((By.ID, 'password'),2)
+        passwordInput = self.driver.find_element(By.ID, 'password')
+        userInput.send_keys(username)
+        passwordInput.send_keys(password) 
+        loginBtn = self.driver.find_element(By.ID, "login-button")
+        loginBtn.click()   
+        errorMessage = self.driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div[1]/div/div/form/div[3]/h3")
+        self.driver.save_screenshot(f"{self.folderPath}/test-locked-login.png")
+        assert errorMessage.text == "Epic sadface: Sorry, this user has been locked out."
   
