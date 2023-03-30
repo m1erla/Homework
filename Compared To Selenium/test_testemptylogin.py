@@ -28,20 +28,8 @@ class TestTestemptylogin():
     WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "*[data-test=\"error\"]")))
     assert self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"error\"]").text == "Epic sadface: Username is required"
   
-  # PYTEST FROM PYTHON
-  def getData():
-        excelFile = openpyxl.load_workbook("data/invalid_login.xlsx")
-        selectedSheet= excelFile["Sheet1"]
-        totalRows = selectedSheet.max_row
-        data =[]
-        for i in range(2,totalRows+1):
-            username = selectedSheet.cell(i,1).value
-            password = selectedSheet.cell(i,2).value
-            tupleData = (username,password)
-            data.append(tupleData)
-        return data
-      
-      
+  
+   # PYTEST FROM PYTHON  
    def test_empty_login(self):
         self.waitForElementVisible((By.ID, 'login-button'))
         loginBtn = self.driver.find_element(By.ID, 'login-button')
