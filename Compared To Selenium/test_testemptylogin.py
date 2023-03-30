@@ -17,7 +17,7 @@ class TestTestemptylogin():
   
   def teardown_method(self, method):
     self.driver.quit()
-  
+  # SELENIUM TEST
   def test_testemptylogin(self):
     self.driver.get("https://www.saucedemo.com/")
     self.driver.maximize.window()
@@ -28,3 +28,31 @@ class TestTestemptylogin():
     WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "*[data-test=\"error\"]")))
     assert self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"error\"]").text == "Epic sadface: Username is required"
   
+  # PYTEST FROM PYTHON
+  def getData():
+        excelFile = openpyxl.load_workbook("data/invalid_login.xlsx")
+        selectedSheet= excelFile["Sheet1"]
+        totalRows = selectedSheet.max_row
+        data =[]
+        for i in range(2,totalRows+1):
+            username = selectedSheet.cell(i,1).value
+            password = selectedSheet.cell(i,2).value
+            tupleData = (username,password)
+            data.append(tupleData)
+        return data
+      
+      
+   def test_empty_login(self):
+        self.waitForElementVisible((By.ID, 'login-button'))
+        loginBtn = self.driver.find_element(By.ID, 'login-button')
+        loginBtn.click()
+
+        self.waitForElementVisible(
+            (By.XPATH, '//*[@id="login_button_container"]/div/form/div[3]/h3'))
+
+        errorMessage = self.driver.find_element(
+            By.XPATH, '//*[@id="login_button_container"]/div/form/div[3]/h3')
+
+        self.driver.save_screenshot(f"{self.folderPath}/test-empty-login.png")
+
+        assert errorMessage.text == "Epic sadface: Username is required"
