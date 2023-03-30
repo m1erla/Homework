@@ -17,7 +17,7 @@ class TestTestvalidlogin():
   
   def teardown_method(self, method):
     self.driver.quit()
-  
+  # SELENIUM TEST
   def test_testvalidlogin(self):
     self.driver.get("https://www.saucedemo.com/")
     self.driver.maximize_window()
@@ -28,3 +28,26 @@ class TestTestvalidlogin():
     WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "*[data-test=\"login-button\"]")))
     self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"login-button\"]").click()
   
+  # PYTEST FROM PYTHON
+  
+   def test_valid_login(self):
+        
+        self.waitForElementVisible((By.ID, 'user-name'))
+        usernameInput = self.driver.find_element(By.ID, 'user-name')
+        self.waitForElementVisible((By.ID, 'password'),2)
+        passwordInput = self.driver.find_element(By.ID, 'password')
+        loginBtn = self.driver.find_element(By.ID, 'login-button')
+        self.driver.execute_script("window.scrollTo(0,500)") 
+         # Action Chains
+        actions = ActionChains(self.driver)
+        actions.send_keys_to_element(usernameInput, 'standard_user')
+        actions.send_keys_to_element(passwordInput, 'secret_sauce')
+        actions.send_keys_to_element(loginBtn, Keys.ENTER)
+        actions.perform()
+        self.waitForElementVisible((By.CLASS_NAME, 'inventory_list'))
+        loginBtn = self.driver.find_elements(By.CLASS_NAME, 'inventory_item')
+
+        self.driver.save_screenshot(
+            f"{self.folderPath}/test-valid-login.png")
+
+        assert len(loginBtn) == 6
