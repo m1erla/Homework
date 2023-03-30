@@ -17,7 +17,7 @@ class TestTestnullpassword():
   
   def teardown_method(self, method):
     self.driver.quit()
-  
+  # SELENIUM TEST
   def test_testnullpassword(self):
     self.driver.get("https://www.saucedemo.com/")
     self.driver.maximize_window()
@@ -30,3 +30,20 @@ class TestTestnullpassword():
     assert self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"error\"]").text == "Epic sadface: Password is required"
     self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"login-button\"]").click()
   
+  
+  # PYTEST FROM PYTHON
+    @pytest.mark.parametrize("username", [("standard_user")])
+    def test_null_password(self,username):
+       self.waitForElementVisible((By.ID, 'user-name'))
+       userInput = self.driver.find_element(By.ID, 'user-name')
+       userInput.send_keys(username)
+        #self.waitForElementVisible(By.ID, "password",5)
+        #passwordInput = self.driver.find_element(By.ID, "password")
+        #passwordInput.send_keys(password)
+       self.waitForElementVisible((By.ID, 'login-button'))
+       loginBtn = self.driver.find_element(By.ID, 'login-button')
+       loginBtn.click()
+       self.waitForElementVisible((By.XPATH, '//*[@id="login_button_container"]/div/form/div[3]/h3'))
+       errorMessage = self.driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div[1]/div/div/form/div[3]/h3")
+       self.driver.save_screenshot(f"{self.folderPath}/test-null-password.png")
+       assert errorMessage.text == "Epic sadface: Password is required"
