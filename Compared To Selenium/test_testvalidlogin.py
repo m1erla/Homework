@@ -9,10 +9,10 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
+from webdriver_manager.chrome import ChromeDriverManager
 class TestTestvalidlogin():
   def setup_method(self, method):
-    self.driver = webdriver.Chrome()
+    self.driver = webdriver.Chrome(ChromeDriverManager().install())
     self.vars = {}
   
   def teardown_method(self, method):
@@ -20,7 +20,7 @@ class TestTestvalidlogin():
   
   def test_testvalidlogin(self):
     self.driver.get("https://www.saucedemo.com/")
-    self.driver.set_window_size(1423, 1372)
+    self.driver.maximize_window()
     WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "*[data-test=\"username\"]")))
     self.driver.find_element(By.CSS_SELECTOR, "*[data-test=\"username\"]").send_keys("standard_user")
     WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "*[data-test=\"password\"]")))
